@@ -34,7 +34,7 @@ class TelegramController extends AbstractController
             $resultText = null;
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
             $finalOrderMarkup = [
-                'keyboard' => [
+                'inline_keyboard' => [
                     [
                         ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
                     ],
