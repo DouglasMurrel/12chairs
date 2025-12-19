@@ -27,19 +27,19 @@ class TelegramController extends AbstractController
     public function webhook(Request $request): Response
     {
         $message = json_decode($request->getContent());
+        $finalOrderMarkup = [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
+                ],
+            ]
+        ];
         if (property_exists($message,'message')){
             $chatId = $message->message->chat->id;
             $text = $message->message->text;
             $replyMarkup = null;
             $resultText = null;
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
-            $finalOrderMarkup = [
-                'inline_keyboard' => [
-                    [
-                        ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
-                    ],
-                ]
-            ];
             if ($text == "/start") {
                 if ($user) {
                     $user->setState('');
@@ -150,6 +150,78 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Вот и все! Ваша заявка отправлена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_name') {
+                $order = $user->getCharacterOrder();
+                $order->setName($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_contacts') {
+                $order = $user->getCharacterOrder();
+                $order->setContacts($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user && $user->getState()=='edit_role') {
+                $order = $user->getCharacterOrder();
+                $order->setRole($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_wants') {
+                $order = $user->getCharacterOrder();
+                $order->setWant($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_nowants') {
+                $order = $user->getCharacterOrder();
+                $order->setNowant($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_food') {
+                $order = $user->getCharacterOrder();
+                $order->setFood($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_health') {
+                $order = $user->getCharacterOrder();
+                $order->setHealth($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_psychological') {
+                $order = $user->getCharacterOrder();
+                $order->setPsychological($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
+            } elseif ($user && $user->getState()=='edit_other') {
+                $order = $user->getCharacterOrder();
+                $order->setOther($text);
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->persist($order);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
             }
         }
         if (property_exists($message,'callback_query')){
@@ -158,6 +230,13 @@ EOD;
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
             $replyMarkup = null;
             $resultText = null;
+            $cancelReplyMarkup = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'Отменить', 'callback_data' => 'cancel'],
+                    ],
+                ]
+            ];
             if ($data=='start_order'){//начинаем подавать заявку
                 $user->setState('enter_name');
                 $order = new Order();
@@ -182,7 +261,72 @@ EOD;
                 $orderText = "Ваша заявка:\n". $this->render('telegram/order.html.twig', [
                             'order' => $order
                         ])->getContent();
-                $this->telegramService->sendMessage($chatId, $orderText);
+                $replyMarkup = [
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Имя', 'callback_data' => 'edit_name'],
+                            ['text' => 'Контакты', 'callback_data' => 'edit_contacts'],
+                            ['text' => 'Роль', 'callback_data' => 'edit_role'],
+                            ['text' => 'Чего хочет', 'callback_data' => 'edit_want'],
+                            ['text' => 'Чего не хочет', 'callback_data' => 'edit_nowant'],
+                            ['text' => 'Пищевые ограничения', 'callback_data' => 'edit_food'],
+                            ['text' => 'Медицинские противопоказания', 'callback_data' => 'edit_health'],
+                            ['text' => 'Психологические противопоказания', 'callback_data' => 'edit_psychological'],
+                            ['text' => 'Дополнение', 'callback_data' => 'edit_other'],
+                        ],
+                    ]
+                ];
+                $this->telegramService->sendMessage($chatId, $orderText, $replyMarkup);
+            } elseif ($data=='edit_name'){
+                $user->setState('edit_name');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваше имя/ник?', $cancelReplyMarkup);
+            } elseif ($data=='edit_contacts'){
+                $user->setState('edit_contacts');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваши контакты для срочной связи (почта, ВК, телеграм и т.д.)?', $cancelReplyMarkup);
+            } elseif ($data=='edit_role'){
+                $user->setState('edit_role');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Какую роль или роли вы хотели бы сыграть?', $cancelReplyMarkup);
+            } elseif ($data=='edit_want'){
+                $user->setState('edit_want');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Во что вы хотели бы поиграть?', $cancelReplyMarkup);
+            } elseif ($data=='edit_nowant'){
+                $user->setState('edit_nowant');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'А во что вы НЕ хотите играть?', $cancelReplyMarkup);
+            } elseif ($data=='edit_food'){
+                $user->setState('edit_food');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваши пищевые ограничения?', $cancelReplyMarkup);
+            } elseif ($data=='edit_health'){
+                $user->setState('edit_health');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Ваши хронические болезни, аллергии, медицинские противопоказания и т.д.?', $cancelReplyMarkup);
+            } elseif ($data=='edit_psychological'){
+                $user->setState('edit_psychological');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Психологические противопооказания: что с вами ни в коем случае нельзя делать по жизни?', $cancelReplyMarkup);
+            } elseif ($data=='edit_other'){
+                $user->setState('edit_other');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Что вы еще хотите сказать мастерам?', $cancelReplyMarkup);
+            } elseif ($data=='cancel'){
+                $user->setState('');
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->telegramService->sendMessage($chatId, 'Изменение отменено!', $finalOrderMarkup);
             }
         }
 
