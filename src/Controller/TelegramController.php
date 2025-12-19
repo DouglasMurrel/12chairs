@@ -42,11 +42,10 @@ class TelegramController extends AbstractController
             ];
             if ($text == "/start") {
                 if ($user) {
-                    $resultText = "Здравствуйте! Хотите изменить заявку?";
                     $user->setState('');
                     $this->em->persist($user);
                     $this->em->flush();
-                    $this->telegramService->sendMessage($chatId, $resultText, $finalOrderMarkup);
+                    $this->telegramService->sendMessage($chatId, 'Здравствуйте! Хотите изменить заявку?', $finalOrderMarkup);
                 } else {
                     $user = new User();
                     $user
@@ -77,8 +76,8 @@ EOD;
                             ],
                         ]
                     ];
+                    $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);
                 }
-                $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);
             } elseif ($user && $user->getState()=='enter_name') {
                 $order = $user->getCharacterOrder();
                 $order->setName($text);
@@ -179,6 +178,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваше имя/ник?');
             } elseif ($data=='edit_order'){//начинаем редактировать заявку) 
+                $order = $user->getCharacterOrder();
                 $orderText = "Ваша заявка:\n". $this->render('telegram/order.html.twig', [
                             'order' => $order
                         ])->getContent();
