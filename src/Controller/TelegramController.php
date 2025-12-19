@@ -183,8 +183,6 @@ EOD;
                         ])->getContent();
                 $this->telegramService->sendMessage($chatId, $orderText);
             }
-            
-        }
         }
 
         return new Response('OK');
