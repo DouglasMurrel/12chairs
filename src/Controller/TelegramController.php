@@ -176,8 +176,15 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Ваше имя или ник?');
+                $this->telegramService->sendMessage($chatId, 'Ваше имя/ник?');
+            } elseif ($data=='edit_order'){//начинаем редактировать заявку) 
+                $orderText = "Ваша заявка:\n". $this->render('telegram/order.html.twig', [
+                            'order' => $order
+                        ])->getContent();
+                $this->telegramService->sendMessage($chatId, $orderText);
             }
+            
+        }
         }
 
         return new Response('OK');
