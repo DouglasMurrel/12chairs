@@ -70,6 +70,7 @@ EOD;
                         ]
                     ];
                 }
+                $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);            
             } elseif ($user && $user->getState()=='enter_name') {
                 $order = $user->getCharacterOrder();
                 $order->setName($text);
@@ -143,7 +144,6 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Вот и все! Ваша заявка отправлена!?');
             }
-            $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);            
         }
         if (property_exists($message,'callback_query')){
             $chatId = $message->callback_query->message->chat->id;
