@@ -44,10 +44,29 @@ class TelegramController extends AbstractController
             $text = $message->message->text;
             $replyMarkup = null;
             $resultText = null;
+            /** @var User $user */
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
             if ($text == "/start") {
                 if ($user) {
                     $user->setState('');
+                    
+                    if (!$user->getCharacterOrder()){
+                        $order = new Order();
+                        $order
+                            ->setName('')
+                            ->setContacts('')
+                            ->setRole('')
+                            ->setWant('')
+                            ->setNowant('')
+                            ->setFood('')
+                            ->setHealth('')
+                            ->setPsychological('')
+                            ->setOther('')
+                        ;
+                        $this->em->persist($order);
+                        $user->setCharacterOrder($order);
+                    }
+                    
                     $this->em->persist($user);
                     $this->em->flush();
                     $this->telegramService->sendMessage($chatId, 'Здравствуйте! Хотите изменить заявку?', $finalOrderMarkup);
