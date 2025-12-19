@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\TelegramService;
 use App\Entity\Order;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,11 +29,33 @@ class TelegramController extends AbstractController
         $message = json_decode($request->getContent());
         $chatId = $message->message->chat->id;
         $text = $message->message->text;
+        $replyMarkup = null;        
         if ($text == "/start"){
-            $resultText = "Вы записаны. Хотите подать заявку?";
+            $user = $this->em->getRepository(User::class)->findOneBy(['chatId'=>$chatId]);
+            if ($user) {
+                $resultText = "Здравствуйте! Хотите изменить заявку?";
+            } else {
+                $user = new User();
+                $user
+                        ->setChatId($chatId)
+                        ->setName($message->message->chat->first_name . ' ' . $message->message->chat->last_name)
+                        ->setUsername($message->message->chat->username)
+                        ->setState('')
+                        ;
+                $this->em->persist($user);
+                $this->em->fetch();
+                $resultText = "Здравствуйте! Хотите подать заявку?";
+                $replyMarkup = [
+                    'keyboard' => [
+                        [
+                            ['text' => 'Начали!', 'callback_data' => 'start_order']
+                        ],
+                    ]
+                ];
+            }
         }
         
-        $this->telegramService->sendMessage($chatId, $resultText);
+        $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);
 
         return new Response('OK');
     }
