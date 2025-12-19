@@ -33,6 +33,13 @@ class TelegramController extends AbstractController
             $replyMarkup = null;
             $resultText = null;
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
+            $finalOrderMarkup = [
+                'keyboard' => [
+                    [
+                        ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
+                    ],
+                ]
+            ];
             if ($text == "/start") {
                 if ($user) {
                     $resultText = "Здравствуйте! Хотите изменить заявку?";
@@ -66,13 +73,6 @@ EOD;
                         'inline_keyboard' => [
                             [
                                 ['text' => 'Начали!', 'callback_data' => 'start_order']
-                            ],
-                        ]
-                    ];
-                    $finalOrderMarkup = [
-                        'keyboard' => [
-                            [
-                                ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
                             ],
                         ]
                     ];
