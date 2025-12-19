@@ -61,7 +61,7 @@ class TelegramController extends AbstractController
 - Медицинские противопоказания и хронические болезни
 - Психологические пожелания
 - Прочее
-                    EOD;
+EOD;
                     $replyMarkup = [
                         'inline_keyboard' => [
                             [
