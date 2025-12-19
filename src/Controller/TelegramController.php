@@ -427,7 +427,7 @@ EOD;
         if ($text != "/abrakadabra" && !$allowed) {
             $resultText = 'You are not prepared!';
         } else if ($text == "/list") {
-            $orders = $this->em->getRepository(CharacterOrder::class)->findBy([], ['id'=>'DESC']);
+            $orders = $this->em->getRepository(Order::class)->findBy([], ['id'=>'DESC']);
             $resultText = $this->render('telegram/order_list.html.twig', [
                 'orders' => $orders
             ])->getContent();
@@ -435,7 +435,7 @@ EOD;
             $resultText = $chatId;
         } else if (preg_match('/\/order (\d+)/', $text, $m)) {
             $id = $m[1];
-            $order = $this->em->getRepository(CharacterOrder::class)->find($id);
+            $order = $this->em->getRepository(Order::class)->find($id);
             if (!$order) {
                 $resultText = 'Заявка с id=' . $id . ' не найдена';
             } else {
