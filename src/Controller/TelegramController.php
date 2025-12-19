@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\TelegramService;
-use App\Entity\CharacterOrder;
+use App\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +15,7 @@ class TelegramController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private LoggerInterface $logger,
-        private TelegramService $telegramSerice
+        private LoggerInterface $logger
     )
     {
     }
@@ -33,7 +31,7 @@ class TelegramController extends AbstractController
         if ($text != "/abrakadabra" && !$allowed) {
             $resultText = 'You are not prepared!';
         } else if ($text == "/list") {
-            $orders = $this->em->getRepository(CharacterOrder::class)->findBy([], ['id'=>'DESC']);
+            $orders = $this->em->getRepository(Order::class)->findBy([], ['id'=>'DESC']);
             $resultText = $this->render('telegram/order_list.html.twig', [
                 'orders' => $orders
             ])->getContent();
@@ -41,7 +39,7 @@ class TelegramController extends AbstractController
             $resultText = $chatId;
         } else if (preg_match('/\/order (\d+)/', $text, $m)) {
             $id = $m[1];
-            $order = $this->em->getRepository(CharacterOrder::class)->find($id);
+            $order = $this->em->getRepository(Order::class)->find($id);
             if (!$order) {
                 $resultText = 'Заявка с id=' . $id . ' не найдена';
             } else {
@@ -53,7 +51,7 @@ class TelegramController extends AbstractController
             $resultText = $this->render('telegram/help.html.twig')->getContent();
         }
         
-        $this->telegramSerice->sendMessage($resultText, $chatId);
+//        $this->telegramSerice->sendMessage($resultText, $chatId);
 
         return new Response('OK');
     }
