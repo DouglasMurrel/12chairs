@@ -30,6 +30,9 @@ class TelegramController extends AbstractController
         $finalOrderMarkup = [
             'inline_keyboard' => [
                 [
+                    ['text' => 'Показать заявку', 'callback_data' => 'show_order']
+                ],
+                [
                     ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
                 ],
             ]
@@ -256,6 +259,12 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваше имя/ник?');
+            } elseif ($data=='show_order'){
+                $order = $user->getCharacterOrder();
+                $orderText = "Ваша заявка:\n". $this->render('telegram/order.html.twig', [
+                            'order' => $order
+                        ])->getContent();
+                $this->telegramService->sendMessage($chatId, $orderText, $finalOrderMarkup);
             } elseif ($data=='edit_order'){//начинаем редактировать заявку) 
                 $order = $user->getCharacterOrder();
                 $orderText = "Ваша заявка:\n". $this->render('telegram/order.html.twig', [
