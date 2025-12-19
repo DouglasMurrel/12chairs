@@ -46,6 +46,7 @@ class TelegramController extends AbstractController
                     $user->setState('');
                     $this->em->persist($user);
                     $this->em->flush();
+                    $this->telegramService->sendMessage($chatId, $resultText, $finalOrderMarkup);
                 } else {
                     $user = new User();
                     $user
@@ -77,7 +78,7 @@ EOD;
                         ]
                     ];
                 }
-                $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);            
+                $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);
             } elseif ($user && $user->getState()=='enter_name') {
                 $order = $user->getCharacterOrder();
                 $order->setName($text);
