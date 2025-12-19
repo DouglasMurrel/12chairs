@@ -43,6 +43,9 @@ class Order
     #[ORM\Column(type: Types::TEXT)]
     private ?string $nowant = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $other = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +155,18 @@ class Order
     public function setNowant(string $nowant): static
     {
         $this->nowant = $nowant;
+
+        return $this;
+    }
+
+    public function getOther(): ?string
+    {
+        return $this->other;
+    }
+
+    public function setOther(string $other): static
+    {
+        $this->other = $other;
 
         return $this;
     }
