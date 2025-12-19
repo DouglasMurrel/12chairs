@@ -29,7 +29,8 @@ class TelegramController extends AbstractController
         $message = json_decode($request->getContent());
         $chatId = $message->message->chat->id;
         $text = $message->message->text;
-        $replyMarkup = null;        
+        $replyMarkup = null; 
+        $resultText = null;
         if ($text == "/start"){
             $user = $this->em->getRepository(User::class)->findOneBy(['chatId'=>$chatId]);
             if ($user) {
