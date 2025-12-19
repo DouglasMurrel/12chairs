@@ -375,7 +375,7 @@ EOD;
             $resultText = $this->render('telegram/help.html.twig')->getContent();
         }
         
-        $this->telegramService->sendMessage($resultText, $chatId);
+        $this->telegramService->sendMessage($chatId, $resultText);
 
         return new Response('OK');
     }
