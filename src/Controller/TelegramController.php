@@ -431,6 +431,9 @@ EOD;
             $resultText = $this->render('telegram/order_list.html.twig', [
                 'orders' => $orders
             ])->getContent();
+            if ($resultText == ''){
+                $resultText = 'Заявок пока нет';
+            }
         } else if ($text == "/abrakadabra") {
             $resultText = $chatId;
         } else if (preg_match('/\/order (\d+)/', $text, $m)) {
