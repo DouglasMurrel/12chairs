@@ -156,7 +156,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Вот и все! Ваша заявка отправлена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/new_order.html.twig',[
+                $message = $this->render('telegram/new_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -171,7 +171,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -186,7 +186,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -201,7 +201,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -216,7 +216,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -231,7 +231,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -246,7 +246,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -261,7 +261,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -276,7 +276,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
@@ -291,7 +291,7 @@ EOD;
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваша заявка сохранена!',$finalOrderMarkup);
                 
-                $message = $this->templating->render('telegram/edit_order.html.twig',[
+                $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
                 ]);
                 foreach ($masterChatIds as $masterChatId){
