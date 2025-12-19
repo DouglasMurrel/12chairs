@@ -69,6 +69,13 @@ EOD;
                             ],
                         ]
                     ];
+                    $finalOrderMarkup = [
+                        'keyboard' => [
+                            [
+                                ['text' => 'Изменить заявку', 'callback_data' => 'edit_order']
+                            ],
+                        ]
+                    ];
                 }
                 $this->telegramService->sendMessage($chatId, $resultText, $replyMarkup);            
             } elseif ($user && $user->getState()=='enter_name') {
@@ -78,7 +85,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Ваши контакты для срочной связи (почта, ВК, телеграм и т.д.):');
+                $this->telegramService->sendMessage($chatId, 'Ваши контакты для срочной связи (почта, ВК, телеграм и т.д.)?');
             } elseif ($user && $user->getState()=='enter_contacts') {
                 $order = $user->getCharacterOrder();
                 $order->setContacts($text);
@@ -110,7 +117,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Ваши пищевые ограничения:');
+                $this->telegramService->sendMessage($chatId, 'Ваши пищевые ограничения?');
             } elseif ($user && $user->getState()=='enter_food') {
                 $order = $user->getCharacterOrder();
                 $order->setFood($text);
@@ -118,7 +125,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Ваши хронические болезни, аллергии, медицинские противопоказания и т.д.');
+                $this->telegramService->sendMessage($chatId, 'Ваши хронические болезни, аллергии, медицинские противопоказания и т.д.?');
             } elseif ($user && $user->getState()=='enter_health') {
                 $order = $user->getCharacterOrder();
                 $order->setHealth($text);
@@ -134,7 +141,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Что вы езе хотите сказать мастерам?');
+                $this->telegramService->sendMessage($chatId, 'Что вы еще хотите сказать мастерам?');
             } elseif ($user && $user->getState()=='enter_other') {
                 $order = $user->getCharacterOrder();
                 $order->setOther($text);
@@ -142,7 +149,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Вот и все! Ваша заявка отправлена!?');
+                $this->telegramService->sendMessage($chatId, 'Вот и все! Ваша заявка отправлена!',$finalOrderMarkup);
             }
         }
         if (property_exists($message,'callback_query')){
@@ -169,7 +176,7 @@ EOD;
                 $this->em->persist($user);
                 $this->em->persist($order);
                 $this->em->flush();
-                $this->telegramService->sendMessage($chatId, 'Ваше имя или ник:');
+                $this->telegramService->sendMessage($chatId, 'Ваше имя или ник?');
             }
         }
 
