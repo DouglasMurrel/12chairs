@@ -26,7 +26,6 @@ class TelegramController extends AbstractController
     public function webhook(Request $request): Response
     {
         $message = json_decode($request->getContent());
-        $allowedChatIds = explode(',',$this->getParameter('telegram_chat_id'));
         $chatId = $message->message->chat->id;
         $text = $message->message->text;
         if ($text == "/start"){
