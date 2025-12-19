@@ -24,4 +24,16 @@ class TelegramService {
         }
         $this->client->request('POST', 'https://api.telegram.org/bot' . $token . '/sendMessage', ['json'=>$data]);
     }
+    
+    public function sendMessageMaster($chatId, $message, $replyMarkup = null) {
+        $token = $this->parameterBag->get('telegram_master_bot_token');
+        $data = [
+            'chat_id' => $chatId,
+            'text' => $message,
+        ];
+        if ($replyMarkup) {
+            $data['reply_markup'] = $replyMarkup;
+        }
+        $this->client->request('POST', 'https://api.telegram.org/bot' . $token . '/sendMessage', ['json'=>$data]);
+    }
 }
