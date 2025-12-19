@@ -46,7 +46,7 @@ class TelegramController extends AbstractController
                 $this->em->flush();
                 $resultText = "Здравствуйте! Хотите подать заявку?";
                 $replyMarkup = [
-                    'keyboard' => [
+                    'inline_keyboard' => [
                         [
                             ['text' => 'Начали!', 'callback_data' => 'start_order']
                         ],
