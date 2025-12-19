@@ -270,10 +270,10 @@ EOD;
                         ],[
                             ['text' => 'Чего хочет', 'callback_data' => 'edit_want'],
                             ['text' => 'Чего не хочет', 'callback_data' => 'edit_nowant'],
-                            ['text' => 'Пищевые ограничения', 'callback_data' => 'edit_food'],
+                            ['text' => 'Еда', 'callback_data' => 'edit_food'],
                         ],[
-                            ['text' => 'Медицинские противопоказания', 'callback_data' => 'edit_health'],
-                            ['text' => 'Психологические противопоказания', 'callback_data' => 'edit_psychological'],
+                            ['text' => 'Медицина', 'callback_data' => 'edit_health'],
+                            ['text' => 'Психология', 'callback_data' => 'edit_psychological'],
                             ['text' => 'Дополнение', 'callback_data' => 'edit_other'],
                         ],
                     ]
