@@ -32,8 +32,8 @@ class TelegramController extends AbstractController
             $text = $message->message->text;
             $replyMarkup = null;
             $resultText = null;
+            $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
             if ($text == "/start") {
-                $user = $this->em->getRepository(User::class)->findOneBy(['chatId' => $chatId]);
                 if ($user) {
                     $resultText = "Здравствуйте! Хотите изменить заявку?";
                     $user->setState('');
