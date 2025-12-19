@@ -70,7 +70,7 @@ EOD;
                         ]
                     ];
                 }
-            } elseif ($user->getState()=='enter_name') {
+            } elseif ($user && $user->getState()=='enter_name') {
                 $order = $user->getCharacterOrder();
                 $order->setName($text);
                 $user->setState('enter_contacts');
@@ -78,7 +78,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваши контакты для срочной связи (почта, ВК, телеграм и т.д.):');
-            } elseif ($user->getState()=='enter_contacts') {
+            } elseif ($user && $user->getState()=='enter_contacts') {
                 $order = $user->getCharacterOrder();
                 $order->setContacts($text);
                 $user->setState('enter_role');
@@ -86,7 +86,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Какую роль или роли вы хотели бы сыграть?');
-            } elseif ($user->getState()=='enter_role') {
+            } elseif ($user && $user && $user->getState()=='enter_role') {
                 $order = $user->getCharacterOrder();
                 $order->setRole($text);
                 $user->setState('enter_wants');
@@ -94,7 +94,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Во что вы хотели бы поиграть?');
-            } elseif ($user->getState()=='enter_wants') {
+            } elseif ($user && $user->getState()=='enter_wants') {
                 $order = $user->getCharacterOrder();
                 $order->setWant($text);
                 $user->setState('enter_nowants');
@@ -102,7 +102,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'А во что вы НЕ хотите играть?');
-            } elseif ($user->getState()=='enter_nowants') {
+            } elseif ($user && $user->getState()=='enter_nowants') {
                 $order = $user->getCharacterOrder();
                 $order->setNowant($text);
                 $user->setState('enter_food');
@@ -110,7 +110,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваши пищевые ограничения:');
-            } elseif ($user->getState()=='enter_food') {
+            } elseif ($user && $user->getState()=='enter_food') {
                 $order = $user->getCharacterOrder();
                 $order->setFood($text);
                 $user->setState('enter_health');
@@ -118,7 +118,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Ваши хронические болезни, аллергии, медицинские противопоказания и т.д.');
-            } elseif ($user->getState()=='enter_health') {
+            } elseif ($user && $user->getState()=='enter_health') {
                 $order = $user->getCharacterOrder();
                 $order->setHealth($text);
                 $user->setState('enter_psychological');
@@ -126,7 +126,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Психологические противопооказания: что с вами ни в коем случае нельзя делать по жизни?');
-            } elseif ($user->getState()=='enter_psychological') {
+            } elseif ($user && $user->getState()=='enter_psychological') {
                 $order = $user->getCharacterOrder();
                 $order->setPsychological($text);
                 $user->setState('enter_other');
@@ -134,7 +134,7 @@ EOD;
                 $this->em->persist($order);
                 $this->em->flush();
                 $this->telegramService->sendMessage($chatId, 'Что вы езе хотите сказать мастерам?');
-            } elseif ($user->getState()=='enter_other') {
+            } elseif ($user && $user->getState()=='enter_other') {
                 $order = $user->getCharacterOrder();
                 $order->setOther($text);
                 $user->setState('');
