@@ -158,7 +158,7 @@ EOD;
                 
                 $message = $this->render('telegram/new_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -173,7 +173,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -188,7 +188,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -203,7 +203,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -218,7 +218,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -233,7 +233,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -248,7 +248,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -263,7 +263,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -278,7 +278,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
@@ -293,7 +293,7 @@ EOD;
                 
                 $message = $this->render('telegram/edit_order.html.twig',[
                     'order' => $order
-                ]);
+                ])->getContent();
                 foreach ($masterChatIds as $masterChatId){
                     $this->telegramService->sendMessageMaster($masterChatId, $message);
                 }
