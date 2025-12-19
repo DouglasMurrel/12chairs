@@ -267,9 +267,11 @@ EOD;
                             ['text' => 'Имя', 'callback_data' => 'edit_name'],
                             ['text' => 'Контакты', 'callback_data' => 'edit_contacts'],
                             ['text' => 'Роль', 'callback_data' => 'edit_role'],
+                        ],[
                             ['text' => 'Чего хочет', 'callback_data' => 'edit_want'],
                             ['text' => 'Чего не хочет', 'callback_data' => 'edit_nowant'],
                             ['text' => 'Пищевые ограничения', 'callback_data' => 'edit_food'],
+                        ],[
                             ['text' => 'Медицинские противопоказания', 'callback_data' => 'edit_health'],
                             ['text' => 'Психологические противопоказания', 'callback_data' => 'edit_psychological'],
                             ['text' => 'Дополнение', 'callback_data' => 'edit_other'],
