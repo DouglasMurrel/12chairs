@@ -43,7 +43,7 @@ class TelegramController extends AbstractController
                         ->setState('')
                         ;
                 $this->em->persist($user);
-                $this->em->fetch();
+                $this->em->flush();
                 $resultText = "Здравствуйте! Хотите подать заявку?";
                 $replyMarkup = [
                     'keyboard' => [
