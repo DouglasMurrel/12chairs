@@ -14,7 +14,7 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(unique: true)]
-    private ?int $chatId = null;
+    private ?string $chatId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -33,12 +33,12 @@ class User
         return $this->id;
     }
 
-    public function getChatId(): ?int
+    public function getChatId(): ?string
     {
         return $this->chatId;
     }
 
-    public function setChatId(int $chatId): static
+    public function setChatId(string $chatId): static
     {
         $this->chatId = $chatId;
 
