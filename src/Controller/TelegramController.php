@@ -86,9 +86,11 @@ class TelegramController extends AbstractController
                         $user
                                 ->setChatId($chatId)
                                 ->setName($first_name . ' ' . $last_name)
-                                ->setUsername($message->message->chat->username)
                                 ->setState('')
                         ;
+                        if (property_exists($message->message->chat, 'username')){
+                            $user->setUsername($message->message->chat->username);
+                        }
                         $this->em->persist($user);
                         $this->em->flush();
                         $resultText = <<<EOD
