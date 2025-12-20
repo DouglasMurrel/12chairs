@@ -85,7 +85,7 @@ class TelegramController extends AbstractController
                         }
                         $user
                                 ->setChatId($chatId)
-                                ->setName($message->message->chat->first_name . ' ' . $last_name)
+                                ->setName($first_name . ' ' . $last_name)
                                 ->setUsername($message->message->chat->username)
                                 ->setState('')
                         ;
