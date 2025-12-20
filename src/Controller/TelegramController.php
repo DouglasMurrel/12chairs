@@ -90,6 +90,8 @@ class TelegramController extends AbstractController
                         ;
                         if (property_exists($message->message->chat, 'username')){
                             $user->setUsername($message->message->chat->username);
+                        } else {
+                            $user->setUsername('');
                         }
                         $this->em->persist($user);
                         $this->em->flush();
