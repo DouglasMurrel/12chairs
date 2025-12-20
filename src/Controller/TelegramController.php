@@ -73,9 +73,19 @@ class TelegramController extends AbstractController
                         $this->telegramService->sendMessage($chatId, 'Здравствуйте! Хотите изменить заявку?', $finalOrderMarkup);
                     } else {
                         $user = new User();
+                        if (property_exists($message->message->chat, 'first_name')){
+                            $first_name = $message->message->chat->first_name;
+                        } else {
+                            $first_name = '';
+                        }
+                        if (property_exists($message->message->chat, 'last_name')){
+                            $last_name = $message->message->chat->last_name;
+                        } else {
+                            $last_name = '';
+                        }
                         $user
                                 ->setChatId($chatId)
-                                ->setName($message->message->chat->first_name . ' ' . $message->message->chat->last_name)
+                                ->setName($message->message->chat->first_name . ' ' . $last_name)
                                 ->setUsername($message->message->chat->username)
                                 ->setState('')
                         ;
