@@ -1,0 +1,13 @@
+{% for order in orders %}
+{{ order.id }}: {{ order.name }}
+Контакты: {{ order.contacts }}
+Желаемая роль: {{ order.role }}
+Чего хочет: {{ order.want }}
+Чего не хочет: {{ order.nowant }}
+Пищевые ограничения: {{ order.food }}
+Медицинские противопоказания: {{ order.health }}
+Психологические противопоказания: {{ order.psychological }}
+Дополнение: {{ order.other }}
+-------------------------
+{% endfor %}
+
