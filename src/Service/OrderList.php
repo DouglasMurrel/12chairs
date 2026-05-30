@@ -20,7 +20,7 @@ class OrderList {
             $orders = $this->em->getRepository(Order::class)->findBy([], ['id'=>'DESC']);
             $resultText = $this->twig->render('order_list.html.twig', [
                 'orders' => $orders
-            ])->getContent();
+            ]);
             if ($resultText == ''){
                 $resultText = 'Заявок пока нет';
             }
