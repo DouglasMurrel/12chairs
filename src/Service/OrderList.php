@@ -18,7 +18,7 @@ class OrderList {
     public function generateText(): string
     {
             $orders = $this->em->getRepository(Order::class)->findBy([], ['id'=>'DESC']);
-            $resultText = $this->render('order_list.html.twig', [
+            $resultText = $this->twig->render('order_list.html.twig', [
                 'orders' => $orders
             ])->getContent();
             if ($resultText == ''){
